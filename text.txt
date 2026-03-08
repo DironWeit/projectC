@@ -3,14 +3,7 @@ V2
 							      GitLab
 							      GitHub
 
-Как теперь работать
-Теперь у вас два отдельных remote с чистыми SSH-адресами:
-
-Remote		Для какого сервиса	Команда push
-origin		GitHub			git push origin master
-gitlab		GitLab			git push gitlab master
-
-
+Команда для push: git push -u origin main
 
 Ссылки: 
 	https://github.com/DironWeit/projectC
