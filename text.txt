@@ -1,0 +1,10 @@
+Я создал сделал так что бы этот проект пушился на два сервиса:
+							      GitLab
+							      GitHub
+
+Команда для push: git push -u origin main
+
+Ссылки: 
+	https://github.com/DironWeit/projectC
+	https://gitlab.nntc.nnov.ru/antonov_a_i/projectc#
+
