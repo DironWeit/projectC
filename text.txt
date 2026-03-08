@@ -3,7 +3,7 @@ V2
 							      GitLab
 							      GitHub
 
-Команда для push: git push -u origin main
+Команда для push: git push -u origin master
 
 Ссылки: 
 	https://github.com/DironWeit/projectC
