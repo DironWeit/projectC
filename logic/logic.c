@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
+#include <stdbool.h>
 
 //Функция очистки всего поля
 //берем каждую клетку матриции и присваем ей 0
@@ -71,7 +72,68 @@ int addRandTitle(int pole[4][4]) {
   return 0;
 }
 
+//Функция сортировки в рамке 1 строки
+//дублирует строку
+//сдвигает все нули вправо
+//копирует дуюлированную строку в наш основной массив
+int sortStr(int i, int pole[4][4]) {
+  int tmpStr[4] = {0};
+  bool entSt = false;
+  for (int j =0; j < 4; j++) {
+    tmpStr[j] = pole[i][j];
+  }
 
+  while (entSt != true) {
+    entSt = true;
+    for (int k =0; k <3;k++) {
+      if (tmpStr[k] == 0 && tmpStr[k+1] !=0) {
+        tmpStr[k] = tmpStr[k+1];
+        tmpStr[k+1] = 0;
+        entSt = false;
+      }
+    }
+  }
 
+  for (int r =0; r < 4; r++) {
+     pole[i][r] = tmpStr[r];
+  }
+  return 0;
+}
 
+//Функция суммирования соседних элементов в 1 строке
+//копирует строку
+//находит равных соседниъ элементов и их суммирует со сдвигом в лево
+//переносит дублированную строку в основной массив
+int sumStr(int i, int pole[4][4]) {
+  int tmpStr[4] = {0};
+  bool entSt = false;
+  for (int j = 0; j <4;j++) {
+    tmpStr[j] = pole[i][j];
+  }
+
+  for (int k = 0; k <3;k++) {
+    if (tmpStr[k] == tmpStr[k+1]) {
+      tmpStr[k] = tmpStr[k]*2;
+      tmpStr[k+1] = 0;
+      k++;
+    }
+  }
+
+  for (int r =0; r < 4; r++) {
+    pole[i][r] = tmpStr[r];
+  }
+  return 0;
+}
+
+//движение влево
+//управлеяет подвункциями
+int muveLeft(int pole[4][4]) {
+  int i = 0;
+  while (i < 4){
+    sortStr(i, pole);
+    sumStr(i, pole);
+    sortStr(i, pole);
+    i++;
+  }
+}
 
