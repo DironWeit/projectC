@@ -15,19 +15,15 @@ int main() {
   {0,2,2,2},
   {2,4,0,4}
   };
+  printf("до переворода на 90 градусов по часовой\n");
   pokazPole(pole);
-
-  muveLeft(pole);
-  printf("---\n");
+  printf("После переворода на 90 градусов по часовой\n");
+  roteteMatrix(pole);
+  pokazPole(pole);
+  printf("После переворода на -90 градусов по часовой\n");
+  unRoteteMatrix(pole);
   pokazPole(pole);
   
-  addRandTitle(pole);
-  printf("---\n");
-  pokazPole(pole);
-  
-  muveLeft(pole);
-  printf("---\n");
-  pokazPole(pole);
   
   
 

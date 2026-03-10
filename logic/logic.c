@@ -21,8 +21,9 @@ int clearPole(int pole[4][4]) {
 //берем каждую клетку в строке и выводи, а после прохождения строки переносим коретку
 int pokazPole(int pole[4][4]) {
   for (int i = 0; i < 4; i++) {
+    printf("|");
     for (int j = 0; j < 4; j++) {
-      printf("%d |", pole[i][j]);
+      printf("%d|", pole[i][j]);
     }
     printf("\n");
   }
@@ -136,4 +137,39 @@ int muveLeft(int pole[4][4]) {
     i++;
   }
 }
+
+//Функция повораьта матрици для того что бы не делать много функций сдвигов
+//Работа цункции:
+//Идем по стр снизу и строки выставляем в столбец
+int roteteMatrix(int pole[4][4]) {
+  int tempMatrix[4][4] = {0};
+  for (int i = 0; i < 4; i++) {
+    for (int j =0; j <4;j++) {
+      tempMatrix[j][3 - i] = pole[i][j];
+    }
+  }
+
+  for (int i = 0; i < 4; i++) {
+    for (int j = 0; j < 4; j++) {
+      pole[i][j] = tempMatrix[i][j];
+    }
+  }
+}
+
+//Функция поворота матрици в обратную сторану 
+int unRoteteMatrix(int pole[4][4]) {
+  int tempMatrix[4][4] = {0};
+  for (int i = 0; i < 4; i++) {
+    for (int j = 0; j < 4; j++) {
+      tempMatrix[3 - j][i] = pole[i][j];
+    }
+  }
+
+  for (int i = 0; i < 4; i++) {
+    for (int j = 0; j < 4; j++) {
+      pole[i][j] = tempMatrix[i][j];
+    }
+  }
+}
+
 
