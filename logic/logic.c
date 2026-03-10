@@ -5,6 +5,8 @@
 #include <time.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <termios.h>
+
 
 //Функция очистки всего поля
 //берем каждую клетку матриции и присваем ей 0
@@ -171,29 +173,63 @@ int unRoteteMatrix(int pole[4][4]) {
     }
   }
 }
-
+// Движение лево
 int moveLeft(int pole[4][4]) {
   dvish(pole);
-}
+  addRandTitle(pole);
 
+}
+// Движение право
 int moveRight(int pole[4][4]) {
   roteteMatrix(pole);
   roteteMatrix(pole);
   dvish(pole);
   unRoteteMatrix(pole);
   unRoteteMatrix(pole);
+  addRandTitle(pole);
 }
-
+// Движение верх
 int moveTop(int pole[4][4]) {
   unRoteteMatrix(pole);
   dvish(pole);
   roteteMatrix(pole);
+  addRandTitle(pole);
 }
-
+// Движение низ
 int moveBottom(int pole[4][4]) {
   roteteMatrix(pole);
   dvish(pole);
   unRoteteMatrix(pole);
+  addRandTitle(pole);
+}
+
+// Проверка на свободные клетки в игровом поле
+int check(int pole[4][4]) {
+  int s = 0;
+  for (int i = 0; i < 4; i++) {
+    for (int j = 0; j < 4; j++) {
+      if (pole[i][j] != 0) {
+        s++;
+      }
+    }
+  }
+  return s;
+}
+
+// функция для ввода клавиш
+int my_getch() {
+    struct termios oldt, newt;
+    int ch;
+    
+    tcgetattr(STDIN_FILENO, &oldt);
+    newt = oldt;
+    newt.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+    
+    ch = getchar();
+    
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+    return ch;
 }
 
 
