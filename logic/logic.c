@@ -128,7 +128,7 @@ int sumStr(int i, int pole[4][4]) {
 
 //движение влево
 //управлеяет подвункциями
-int muveLeft(int pole[4][4]) {
+int dvish(int pole[4][4]) {
   int i = 0;
   while (i < 4){
     sortStr(i, pole);
@@ -170,6 +170,30 @@ int unRoteteMatrix(int pole[4][4]) {
       pole[i][j] = tempMatrix[i][j];
     }
   }
+}
+
+int moveLeft(int pole[4][4]) {
+  dvish(pole);
+}
+
+int moveRight(int pole[4][4]) {
+  roteteMatrix(pole);
+  roteteMatrix(pole);
+  dvish(pole);
+  unRoteteMatrix(pole);
+  unRoteteMatrix(pole);
+}
+
+int moveTop(int pole[4][4]) {
+  unRoteteMatrix(pole);
+  dvish(pole);
+  roteteMatrix(pole);
+}
+
+int moveBottom(int pole[4][4]) {
+  roteteMatrix(pole);
+  dvish(pole);
+  unRoteteMatrix(pole);
 }
 
 

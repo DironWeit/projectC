@@ -9,25 +9,78 @@
 int main() {
   srand(time(NULL));
   //Инициализируем матрицу для поля 
+  printf("Создаем поле\n");
   int pole[4][4] = {
-  {0,2,0,2},
   {0,0,0,2},
-  {0,2,2,2},
-  {2,4,0,4}
+  {0,8,0,2},
+  {0,0,2,0},
+  {0,4,0,4}
   };
-  printf("до переворода на 90 градусов по часовой\n");
+  
+  printf("Содается случайный элемент\n");
+  addRandTitle(pole);
+  printf("Вывод\n");
   pokazPole(pole);
-  printf("После переворода на 90 градусов по часовой\n");
-  roteteMatrix(pole);
-  pokazPole(pole);
-  printf("После переворода на -90 градусов по часовой\n");
-  unRoteteMatrix(pole);
+  printf("Движение вправо\n");
+  moveRight(pole);
+  printf("Вывод\n");
   pokazPole(pole);
   
+  printf("Содается случайный элемент\n");
+  addRandTitle(pole);
+  printf("Вывод\n");
+  pokazPole(pole);
+  printf("Движение вверх\n");
+  moveTop(pole);
+  printf("Вывод\n");
+  pokazPole(pole);
   
+  printf("Содается случайный элемент\n");
+  addRandTitle(pole);
+  printf("Вывод\n");
+  pokazPole(pole);
+  printf("Движение вправо\n");
+  moveRight(pole);
+  printf("Вывод\n");
+  pokazPole(pole);
   
+  printf("Содается случайный элемент\n");
+  addRandTitle(pole);
+  printf("Вывод\n");
+  pokazPole(pole);
+  printf("Жвижение вниз\n");
+  moveBottom(pole);
+  printf("Вывод\n");
+  pokazPole(pole);
+  
+  printf("Содается случайный элемент\n");
+  addRandTitle(pole);
+  printf("Вывод\n");
+  pokazPole(pole);
+  printf("Движение влево\n");
+  moveLeft(pole);  
+  printf("Вывод\n");
+  pokazPole(pole);
+  
+  printf("Содается случайный элемент\n");
+  addRandTitle(pole);
+  printf("Вывод\n");
+  pokazPole(pole);
+  printf("Движение вправо\n");
+  moveRight(pole);
+  printf("Вывод\n");
+  pokazPole(pole);
+  
+  printf("Содается случайный элемент\n");
+  addRandTitle(pole);
+  printf("Вывод\n");
+  pokazPole(pole);
+  printf("Движение вправо\n");
+  moveRight(pole);
+  printf("Вывод\n");
+  pokazPole(pole);
 
-  
+
 
   return 0;
 }
