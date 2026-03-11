@@ -16,4 +16,6 @@ int moveBottom(int pole[4][4]);
 
 int check(int pole[4][4]);
 int my_getch();
+
+bool gameIsOver(int pole[4][4]);
 #endif

@@ -8,6 +8,7 @@
 #include <termios.h>
 
 
+
 //Функция очистки всего поля
 //берем каждую клетку матриции и присваем ей 0
 int clearPole(int pole[4][4]) {
@@ -42,22 +43,22 @@ int addRandTitle(int pole[4][4]) {
   int j = rand() % 100;
 
   if (i >= 0 && i <25) {
-    i = 1;
+    i = 0;
   } else if (i >= 25 && i < 50) {
-    i = 2;
+    i = 1;
   } else if (i >=50 && i < 75) {
-    i = 3;
+    i = 2;
   } else {
-    i =4;
+    i =3;
   }
   if (j >= 0 && j <25) {
-    j = 1;
+    j = 0;
   } else if (j >= 25 && j < 50) {
-    j = 2;
+    j = 1;
   } else if (j >=50 && j < 75) {
-    j = 3;
+    j = 2;
   } else {
-    j =4;
+    j =3;
   }
 
   int proc = rand() % 100 + 1;
@@ -230,6 +231,91 @@ int my_getch() {
     
     tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
     return ch;
+}
+
+//Большая функция проверки остался ли код
+//Если осталось 0 пустых ячеек и эта функция вернет true тогда игра законченна  
+bool gameIsOver(int pole[4][4]) {
+  int tempmatrix[4][4] = {0};
+  for (int i =0; i < 4; i++) {
+    for (int j = 0; j < 4; j++) {
+      tempmatrix[i][j] = pole[i][j];
+    }
+  }
+  int s =0;
+
+  // Проверка на лево
+  moveLeft(pole);
+  s = check(pole);
+  if (s == 0) {
+    for (int i =0; i < 4; i++) {
+      for (int j = 0; j < 4; j++) {
+        pole[i][j] = tempmatrix[i][j];
+      }
+    }
+    return true;
+  }
+
+  // проверка на право
+  for (int i =0; i < 4; i++) {
+    for (int j = 0; j < 4; j++) {
+      pole[i][j] = tempmatrix[i][j];
+    }
+  }
+  s = 0;
+  moveRight(pole);
+  s = check(pole);
+  if (s == 0) {
+    for (int i =0; i < 4; i++) {
+      for (int j = 0; j < 4; j++) {
+        pole[i][j] = tempmatrix[i][j];
+      }
+    }
+    return true;
+  }
+
+  // Проверка на верх
+  for (int i =0; i < 4; i++) {
+    for (int j = 0; j < 4; j++) {
+      pole[i][j] = tempmatrix[i][j];
+    }
+  }
+  s = 0;
+  moveTop(pole);
+  s = check(pole);
+  if (s == 0) {
+    for (int i =0; i < 4; i++) {
+      for (int j = 0; j < 4; j++) {
+        pole[i][j] = tempmatrix[i][j];
+      }
+    }
+    return true;
+  }
+
+  // Проверка на низ
+  for (int i =0; i < 4; i++) {
+    for (int j = 0; j < 4; j++) {
+      pole[i][j] = tempmatrix[i][j];
+    }
+  }
+  s = 0;
+  moveBottom(pole);
+  s = check(pole);
+  if (s == 0) {
+    for (int i =0; i < 4; i++) {
+      for (int j = 0; j < 4; j++) {
+        pole[i][j] = tempmatrix[i][j];
+      }
+    }
+    return true;
+  }
+
+  for (int i =0; i < 4; i++) {
+      for (int j = 0; j < 4; j++) {
+        pole[i][j] = tempmatrix[i][j];
+      }
+    }
+    return false;
 }
 
 

@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
+#include <stdbool.h>
 #include "logic/logic.h"
 
 int main() {
@@ -18,7 +19,10 @@ int main() {
   // Тело игры
   while (stateGame != 0){
     if (stateGame == 0) {
-      break;
+      bool gameOver = gameIsOver(pole);
+      if (gameOver == true){
+        break;
+      }
     } 
     
     //Символы стрелок  в линукс это последовательность из 3 символов. 
@@ -46,11 +50,5 @@ int main() {
 
 
   }
-  
-
-  
-
-
-
   return 0;
 }
