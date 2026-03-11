@@ -39,6 +39,18 @@ int pokazPole(int pole[4][4]) {
 //и заполним нужную клетку числои
 //функция рандома измененена на более рандомную
 int addRandTitle(int pole[4][4]) {
+  int col = 0;
+  for (int i =0; i < 4; i++) {
+    for (int j =0; j < 4; j++) {
+      if (pole[i][j] == 0) {
+        col++;
+      }
+    }
+  }
+  if (col == 0) {
+    return 0;
+  }
+
   int i = rand() % 100;
   int j = rand() % 100;
 
@@ -63,8 +75,9 @@ int addRandTitle(int pole[4][4]) {
 
   int proc = rand() % 100 + 1;
   int num;
-  if (pole[i][j] != 0) {
-    return addRandTitle(pole);
+  while (pole[i][j] != 0) {
+    i = rand() % 4;
+    j = rand() % 4;
   }
 
   if (proc >=90) {
@@ -131,7 +144,7 @@ int sumStr(int i, int pole[4][4]) {
 
 //движение влево
 //управлеяет подвункциями
-int dvish(int pole[4][4]) {
+void dvish(int pole[4][4]) {
   int i = 0;
   while (i < 4){
     sortStr(i, pole);
@@ -174,34 +187,108 @@ int unRoteteMatrix(int pole[4][4]) {
     }
   }
 }
+// сравнение матриц
+bool isChanged(int old[4][4], int pole[4][4]) {
+
+  for (int i = 0; i < 4; i++) {
+    for (int j = 0; j < 4; j++) {
+      if (old[i][j] != pole[i][j]) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
 // Движение лево
 int moveLeft(int pole[4][4]) {
-  dvish(pole);
-  addRandTitle(pole);
 
+  int old[4][4];
+
+  // копируем поле
+  for (int i = 0; i < 4; i++) {
+    for (int j = 0; j < 4; j++) {
+      old[i][j] = pole[i][j];
+    }
+  }
+
+  // выполняем движение
+  dvish(pole);
+
+  // проверяем изменилось ли поле
+  bool changed = false;
+
+  for (int i = 0; i < 4; i++) {
+    for (int j = 0; j < 4; j++) {
+      if (old[i][j] != pole[i][j]) {
+        changed = true;
+      }
+    }
+  }
+
+  // если изменилось — добавляем плитку
+  if (changed) {
+    addRandTitle(pole);
+  }
+
+  return 0;
 }
 // Движение право
 int moveRight(int pole[4][4]) {
+
+  int old[4][4];
+
+  // копируем поле
+  for (int i=0;i<4;i++)
+    for (int j=0;j<4;j++)
+      old[i][j] = pole[i][j];
+
   roteteMatrix(pole);
   roteteMatrix(pole);
+
   dvish(pole);
+
   unRoteteMatrix(pole);
   unRoteteMatrix(pole);
-  addRandTitle(pole);
+
+  if (isChanged(old, pole)) {
+    addRandTitle(pole);
+  }
 }
 // Движение верх
 int moveTop(int pole[4][4]) {
+
+  int old[4][4];
+
+  for (int i=0;i<4;i++)
+    for (int j=0;j<4;j++)
+      old[i][j] = pole[i][j];
+
   unRoteteMatrix(pole);
   dvish(pole);
   roteteMatrix(pole);
-  addRandTitle(pole);
+
+  if (isChanged(old, pole)) {
+    addRandTitle(pole);
+  }
 }
 // Движение низ
 int moveBottom(int pole[4][4]) {
+
+  int old[4][4];
+
+  for (int i=0;i<4;i++)
+    for (int j=0;j<4;j++)
+      old[i][j] = pole[i][j];
+
   roteteMatrix(pole);
   dvish(pole);
   unRoteteMatrix(pole);
-  addRandTitle(pole);
+
+  if (isChanged(old, pole)) {
+    addRandTitle(pole);
+  }
 }
 
 // Проверка на свободные клетки в игровом поле
@@ -235,87 +322,34 @@ int my_getch() {
 
 //Большая функция проверки остался ли код
 //Если осталось 0 пустых ячеек и эта функция вернет true тогда игра законченна  
+// Переработал
 bool gameIsOver(int pole[4][4]) {
-  int tempmatrix[4][4] = {0};
-  for (int i =0; i < 4; i++) {
-    for (int j = 0; j < 4; j++) {
-      tempmatrix[i][j] = pole[i][j];
-    }
-  }
-  int s =0;
 
-  // Проверка на лево
-  moveLeft(pole);
-  s = check(pole);
-  if (s == 0) {
-    for (int i =0; i < 4; i++) {
-      for (int j = 0; j < 4; j++) {
-        pole[i][j] = tempmatrix[i][j];
-      }
+    // если есть пустая клетка — игра продолжается
+    for (int i=0;i<4;i++){
+        for (int j=0;j<4;j++){
+            if (pole[i][j] == 0)
+                return false;
+        }
     }
+
+    // проверка горизонтали
+    for (int i=0;i<4;i++){
+        for (int j=0;j<3;j++){
+            if (pole[i][j] == pole[i][j+1])
+                return false;
+        }
+    }
+
+    // проверка вертикали
+    for (int j=0;j<4;j++){
+        for (int i=0;i<3;i++){
+            if (pole[i][j] == pole[i+1][j])
+                return false;
+        }
+    }
+
     return true;
-  }
-
-  // проверка на право
-  for (int i =0; i < 4; i++) {
-    for (int j = 0; j < 4; j++) {
-      pole[i][j] = tempmatrix[i][j];
-    }
-  }
-  s = 0;
-  moveRight(pole);
-  s = check(pole);
-  if (s == 0) {
-    for (int i =0; i < 4; i++) {
-      for (int j = 0; j < 4; j++) {
-        pole[i][j] = tempmatrix[i][j];
-      }
-    }
-    return true;
-  }
-
-  // Проверка на верх
-  for (int i =0; i < 4; i++) {
-    for (int j = 0; j < 4; j++) {
-      pole[i][j] = tempmatrix[i][j];
-    }
-  }
-  s = 0;
-  moveTop(pole);
-  s = check(pole);
-  if (s == 0) {
-    for (int i =0; i < 4; i++) {
-      for (int j = 0; j < 4; j++) {
-        pole[i][j] = tempmatrix[i][j];
-      }
-    }
-    return true;
-  }
-
-  // Проверка на низ
-  for (int i =0; i < 4; i++) {
-    for (int j = 0; j < 4; j++) {
-      pole[i][j] = tempmatrix[i][j];
-    }
-  }
-  s = 0;
-  moveBottom(pole);
-  s = check(pole);
-  if (s == 0) {
-    for (int i =0; i < 4; i++) {
-      for (int j = 0; j < 4; j++) {
-        pole[i][j] = tempmatrix[i][j];
-      }
-    }
-    return true;
-  }
-
-  for (int i =0; i < 4; i++) {
-      for (int j = 0; j < 4; j++) {
-        pole[i][j] = tempmatrix[i][j];
-      }
-    }
-    return false;
 }
 
 

@@ -4,6 +4,7 @@ V2
 							      GitHub
 
 Команда для push: git push -u origin master
+git push -u gitlab master
 
 Ссылки: 
 	https://github.com/DironWeit/projectC
