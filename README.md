@@ -705,4 +705,30 @@ if (value != 0 && font != NULL) {
 
 #### Добавил шрифт
 
+# V 0.2.4
 
+0 - Релиз проекта: **не релиз**  
+2 - этап разработки релиза: **работа с графикой**  
+4 - раздел этапа разработки рилиза: **Изменение цветов плиток**
+
+### Переделал трисовку цветов клеток
+
+#### В фале gui.c
+
+```c
+  switch (value) {
+    case 0:   SDL_SetRenderDrawColor(renderer, 180, 180, 180, 255); break;
+    case 2:   SDL_SetRenderDrawColor(renderer, 238, 228, 218, 255); break;
+    case 4:   SDL_SetRenderDrawColor(renderer, 237, 224, 200, 255); break;
+    case 8:   SDL_SetRenderDrawColor(renderer, 242, 177, 121, 255); break;
+    case 16:  SDL_SetRenderDrawColor(renderer, 245, 149, 99, 255); break;
+    case 32:  SDL_SetRenderDrawColor(renderer, 246, 124, 95, 255); break;
+    case 64:  SDL_SetRenderDrawColor(renderer, 246, 94, 59, 255); break;
+    case 128: SDL_SetRenderDrawColor(renderer, 237, 207, 114, 255); break;
+    case 256: SDL_SetRenderDrawColor(renderer, 237, 204, 97, 255); break;
+    case 512: SDL_SetRenderDrawColor(renderer, 237, 200, 80, 255); break;
+    case 1024:SDL_SetRenderDrawColor(renderer, 237, 197, 63, 255); break;
+    case 2048:SDL_SetRenderDrawColor(renderer, 237, 194, 46, 255); break;
+    default:  SDL_SetRenderDrawColor(renderer, 60, 58, 50, 255); break; // для больших чисел
+  }
+```
