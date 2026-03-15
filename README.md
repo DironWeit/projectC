@@ -463,6 +463,8 @@ if (my_getch() == '[') {
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
 ```
+window - окно приложения, renderer - рисует графику
+
 
 #### Функция инициализации(запуска) графики
 ```c
@@ -494,5 +496,63 @@ int gui_init();
 ```
 
 
+# V 0.2.1 (графика)
+
+0 - Релиз проекта: **не релиз**  
+2 - этап разработки релиза: **работа с графикой**  
+1 - раздел этапа разработки рилиза: **функция рисования графики**
+
+## В файле **gui.c**:
+
+#### функция рисования 1 плитки
+```c
+void draw_tile(int value, int x, int y) { 
+  SDL_Rect rect;
+
+  // создается прямоугольник
+  rect.x = x;
+  rect.y = y;
+  rect.w = TILE_SIZE - 10;
+  rect.h = TILE_SIZE - 10;
+
+  // Цвет плитки 
+  if(value == 0) {
+    SDL_SetRenderDrawColor(renderer,180,180,180,255); // пустая клетка - серая 
+  } else {
+    SDL_SetRenderDrawColor(renderer,255,180,0,255); // заполненная клетка - оранживая
+  }
+
+  // рисуем прямоугольник
+  SDL_RenderFillRect(renderer,&rect);
+}
+```
+
+#### функция рисования всего поля
+```c
+void gui_draw(int pole[4][4]){
+  //задаем цвет фона и очищаем экран
+  SDL_SetRenderDrawColor(renderer,220,220,220,255);
+  SDL_RenderClear(renderer);
+  // идем по все матрице
+  for(int i=0;i<GRID_SIZE;i++){
+    for(int j=0;j<GRID_SIZE;j++){
+      // вычисляем координаты
+      int x = j*TILE_SIZE + 50;
+      int y = i*TILE_SIZE + 50;
+      // рисуем плитку  
+      draw_tile(pole[i][j],x,y);
+    }
+  }
+  // это рендерит все 
+  SDL_RenderPresent(renderer);
+}
+```
+
+## В файле **gui.h**:
+
+#### объявляем нашы прошлые функции
+```c
+int gui_init();
+```
 
 
