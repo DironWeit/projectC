@@ -69,7 +69,44 @@ void gui_draw(int pole[4][4]){
   SDL_RenderPresent(renderer);
 }
 
+// обработка ввода
+int gui_handle_input(int pole[4][4]) {
+  SDL_Event event;
+  
+  while(SDL_PollEvent(&event)) { 
+    if(event.type == SDL_QUIT)
+    return 0;
+    if(event.type == SDL_KEYDOWN) {
+      switch(event.key.keysym.sym)
+      {
+        case SDLK_UP:
+        moveTop(pole);
+        break;
 
+        case SDLK_DOWN:
+        moveBottom(pole);
+        break;
+        
+        case SDLK_LEFT:
+        moveLeft(pole);
+        break;
+        
+        case SDLK_RIGHT:
+        moveRight(pole);
+        break;
+      }
+    }
+  }
+  
+  return 1;
+}
+
+// закрытие графики
+void gui_destroy() {
+  SDL_DestroyRenderer(renderer);
+  SDL_DestroyWindow(window);
+  SDL_Quit();
+}
 
 
 

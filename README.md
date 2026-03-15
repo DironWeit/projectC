@@ -552,9 +552,69 @@ void gui_draw(int pole[4][4]){
 
 #### объявляем нашы прошлые функции
 ```c
-int gui_init();
+void gui_draw(int pole[4][4]);
+void draw_tile(int value, int x, int y);
 ```
 
+# V 0.2.2 (графика)
 
-#  ТЕСТ ПУША С ОСНОВ АККАУНТА
+0 - Релиз проекта: **не релиз**  
+2 - этап разработки релиза: **работа с графикой**  
+2 - раздел этапа разработки рилиза: **функция ввода и и закрытие графики**
+
+## В файле **gui.c**:
+
+#### функция обработки ввода
+```c
+// обработка ввода
+int gui_handle_input(int pole[4][4]) {
+  SDL_Event event;
+  
+  while(SDL_PollEvent(&event)) { // чтение почереди
+    if(event.type == SDL_QUIT) // обработка нажатия
+    return 0;
+    if(event.type == SDL_KEYDOWN) {
+      switch(event.key.keysym.sym) // управление стрелками
+      {
+        case SDLK_UP: // верх
+        moveTop(pole);
+        break;
+
+        case SDLK_DOWN:// низ
+        moveBottom(pole);
+        break;
+        
+        case SDLK_LEFT: // лево
+        moveLeft(pole);
+        break;
+        
+        case SDLK_RIGHT: //право
+        moveRight(pole);
+        break;
+      }
+    }
+  }
+  
+  return 1;
+}
+```
+
+#### функция 
+```c
+void gui_destroy() // закрытие графики
+{
+  SDL_DestroyRenderer(renderer); // удаляется рендер 
+  SDL_DestroyWindow(window); // удаляется окно
+  SDL_Quit(); // закрывается SDL
+}
+}
+```
+
+## В файле **gui.h**:
+
+#### объявляем 
+```c
+
+```
+
 
