@@ -10,7 +10,9 @@ git push -u gitlab master
 	https://github.com/DironWeit/projectC
 	https://gitlab.nntc.nnov.ru/antonov_a_i/projectc#
 
-
+// библтотеки
+                                  sudo apt update
   установка библиотеки графики    sudo apt install libsdl2-dev
+                                  sudo apt install libsdl2-ttf-dev
   проверка                        sdl2-config --version
 

@@ -1,13 +1,14 @@
 /* logic.h */
-#ifndef __HELLO_H__
-#define __HELLO_H__
+#ifndef __LOGIC_H__
+#define __LOGIC_H__
+#include <stdbool.h>
 int clearPole(int pole[4][4]);
 int pokazPole(int pole[4][4]);
 int addRandTitle(int pole[4][4]);
 
 void dvish(int pole[4][4]);
-int roteteMatrix(int pole[4][4]);
-int unRoteteMatrix(int pole[4][4]);
+void roteteMatrix(int pole[4][4]);
+void unRoteteMatrix(int pole[4][4]);
 
 int moveLeft(int pole[4][4]);
 int moveRight(int pole[4][4]);

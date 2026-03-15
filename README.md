@@ -614,7 +614,95 @@ void gui_destroy() // закрытие графики
 
 #### объявляем 
 ```c
-
+int gui_handle_input(int pole[4][4]);
+void gui_destroy();
 ```
+
+# V 0.2.3
+
+0 - Релиз проекта: **не релиз**  
+2 - этап разработки релиза: **работа с графикой**  
+3 - раздел этапа разработки рилиза: **Переписынный main.c и Makefile и мелкие исправления**
+
+#### в файле main.c
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include "logic/logic.h"
+#include "gui/gui.h"
+
+int main() {
+  srand(time(NULL));
+
+  int pole[4][4] = {0}; // создание поля
+  // создание 2 клеток
+  addRandTitle(pole); 
+  addRandTitle(pole);
+
+  gui_int(); // запуск графики
+
+  int running = 1;
+  // игровой цикл
+  while (running) {
+    running = gui_handle_input(pole); // обработка ввода
+    gui_draw(pole); // обновление состояния игыр 
+    if (gameIsOver(pole)) 
+      running = 0;
+  }
+  
+  gui_destroy(); // закрытие графики
+  return 0;
+}
+```
+
+#### В файле Makefile
+Добавляем создание gui.o и используем в содании и удалении программы и подключение библиотеки графики
+```Makefile
+gui.o:gui/gui.c
+	gcc -c gui/gui.c -o gui.o `sdl2-config --cflags`
+
+  game2048:main.o logic.o gui.o
+	  gcc -o game2048 main.o logic.o gui.o `sdl2-config --cflags --libs`
+
+  delet:
+	  rm -f main.o logic.o gui.o game2048	
+```
+
+#### В файле gui.c добавим в функцию draw_tile
+
+```c
+if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+  printf("SDL_Init Error: %s\n", SDL_GetError());
+  return 1;
+}
+
+if (TTF_Init() == -1) {  // ИСПРАВЛЕНО: проверка ошибок TTF
+  printf("TTF_Init Error: %s\n", TTF_GetError());
+  return 1;
+}
+```
+
+```c
+if (value != 0 && font != NULL) {
+    char text[6];
+    sprintf(text, "%d", value);
+    SDL_Color color = { 0, 0, 0, 255 }; // черный цвет текста
+    SDL_Surface* surface = TTF_RenderText_Blended(font, text, color);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+    // Выравнивание числа по центру плитки
+    SDL_Rect dst;
+    dst.w = surface->w;
+    dst.h = surface->h;
+    dst.x = x + (TILE_SIZE - dst.w) / 2 - 5;
+    dst.y = y + (TILE_SIZE - dst.h) / 2 - 5;
+    SDL_RenderCopy(renderer, texture, NULL, &dst);
+    SDL_FreeSurface(surface);
+    SDL_DestroyTexture(texture);
+  }
+```
+
+#### Добавил шрифт
 
 

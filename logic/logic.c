@@ -9,6 +9,7 @@
 
 
 
+
 //Функция очистки всего поля
 //берем каждую клетку матриции и присваем ей 0
 int clearPole(int pole[4][4]) {
@@ -157,7 +158,7 @@ void dvish(int pole[4][4]) {
 //Функция повораьта матрици для того что бы не делать много функций сдвигов
 //Работа цункции:
 //Идем по стр снизу и строки выставляем в столбец
-int roteteMatrix(int pole[4][4]) {
+void  roteteMatrix(int pole[4][4]) {
   int tempMatrix[4][4] = {0};
   for (int i = 0; i < 4; i++) {
     for (int j =0; j <4;j++) {
@@ -173,7 +174,7 @@ int roteteMatrix(int pole[4][4]) {
 }
 
 //Функция поворота матрици в обратную сторану 
-int unRoteteMatrix(int pole[4][4]) {
+void  unRoteteMatrix(int pole[4][4]) {
   int tempMatrix[4][4] = {0};
   for (int i = 0; i < 4; i++) {
     for (int j = 0; j < 4; j++) {

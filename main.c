@@ -1,47 +1,27 @@
-/* main.c */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <unistd.h>
-#include <stdbool.h>
 #include "logic/logic.h"
+#include "gui/gui.h"
 
 int main() {
   srand(time(NULL));
-  //Инициализируем матрицу для поля 
-  printf("Создаем поле\n");
+
   int pole[4][4] = {0};
   addRandTitle(pole);
-  pokazPole(pole);
+  addRandTitle(pole);
 
-  // Тело игры
-  while (!gameIsOver(pole)) {
+  gui_init();
 
-  //Символы стрелок  в линукс это последовательность из 3 символов. 
-  //Мы сначала проверяем на символ с кодом 27, потом на [ и после уже проверяем на опредленную стрелку
-    // и вызываем что надо
-    int key = my_getch();
-    if (key == 27) {
-      if (my_getch() == '[') {
-        int arrow = my_getch();
-        switch (arrow) {
-          case 'A': moveTop(pole); break;    
-          case 'B': moveBottom(pole); break; 
-          case 'C': moveRight(pole); break;  
-          case 'D': moveLeft(pole); break;   
-        }
-      }
-    }
-    
-    //Считаем пустые клетки
-    //очищаем экран
-    //Выводим
-    system("clear");
-    pokazPole(pole);
-    
-    
+  int running = 1;
+
+  while (running) {
+    running = gui_handle_input(pole);
+    gui_draw(pole);
+    if (gameIsOver(pole)) 
+      running = 0;
   }
-  printf("Game Over\n");
+  
+  gui_destroy();
   return 0;
 }
