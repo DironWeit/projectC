@@ -64,12 +64,6 @@ void draw_tile(int value, int x, int y) {
   rect.h = TILE_SIZE - 10;
 
   // Цвет плитки
-  if (value == 0) {
-    SDL_SetRenderDrawColor(renderer, 180, 180, 180, 255);
-  } else {
-    SDL_SetRenderDrawColor(renderer, 255, 180, 0, 255);
-  }
-
   switch (value) {
     case 0:   SDL_SetRenderDrawColor(renderer, 180, 180, 180, 255); break;
     case 2:   SDL_SetRenderDrawColor(renderer, 238, 228, 218, 255); break;
