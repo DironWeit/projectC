@@ -122,17 +122,18 @@ int sortStr(int i, int pole[4][4]) {
 //копирует строку
 //находит равных соседниъ элементов и их суммирует со сдвигом в лево
 //переносит дублированную строку в основной массив
-int sumStr(int i, int pole[4][4]) {
+int sumStr(int i, int pole[4][4], int *score) {
   int tmpStr[4] = {0};
   bool entSt = false;
   for (int j = 0; j <4;j++) {
     tmpStr[j] = pole[i][j];
   }
 
-  for (int k = 0; k <3;k++) {
+  for (int k = 0; k < 3; k++) {
     if (tmpStr[k] == tmpStr[k+1]) {
       tmpStr[k] = tmpStr[k]*2;
       tmpStr[k+1] = 0;
+      *score += tmpStr[k];
       k++;
     }
   }
@@ -145,11 +146,11 @@ int sumStr(int i, int pole[4][4]) {
 
 //движение влево
 //управлеяет подвункциями
-void dvish(int pole[4][4]) {
+void dvish(int pole[4][4], int *score) {
   int i = 0;
   while (i < 4){
     sortStr(i, pole);
-    sumStr(i, pole);
+    sumStr(i, pole, score);
     sortStr(i, pole);
     i++;
   }
@@ -203,7 +204,7 @@ bool isChanged(int old[4][4], int pole[4][4]) {
 }
 
 // Движение лево
-int moveLeft(int pole[4][4]) {
+int moveLeft(int pole[4][4], int *score) {
 
   int old[4][4];
 
@@ -215,7 +216,7 @@ int moveLeft(int pole[4][4]) {
   }
 
   // выполняем движение
-  dvish(pole);
+  dvish(pole, score);
 
   // проверяем изменилось ли поле
   bool changed = false;
@@ -236,7 +237,7 @@ int moveLeft(int pole[4][4]) {
   return 0;
 }
 // Движение право
-int moveRight(int pole[4][4]) {
+int moveRight(int pole[4][4], int *score) {
 
   int old[4][4];
 
@@ -248,7 +249,7 @@ int moveRight(int pole[4][4]) {
   roteteMatrix(pole);
   roteteMatrix(pole);
 
-  dvish(pole);
+  dvish(pole, score);
 
   unRoteteMatrix(pole);
   unRoteteMatrix(pole);
@@ -258,7 +259,7 @@ int moveRight(int pole[4][4]) {
   }
 }
 // Движение верх
-int moveTop(int pole[4][4]) {
+int moveTop(int pole[4][4], int *score) {
 
   int old[4][4];
 
@@ -267,7 +268,7 @@ int moveTop(int pole[4][4]) {
       old[i][j] = pole[i][j];
 
   unRoteteMatrix(pole);
-  dvish(pole);
+  dvish(pole, score);
   roteteMatrix(pole);
 
   if (isChanged(old, pole)) {
@@ -275,7 +276,7 @@ int moveTop(int pole[4][4]) {
   }
 }
 // Движение низ
-int moveBottom(int pole[4][4]) {
+int moveBottom(int pole[4][4], int *score) {
 
   int old[4][4];
 
@@ -284,7 +285,7 @@ int moveBottom(int pole[4][4]) {
       old[i][j] = pole[i][j];
 
   roteteMatrix(pole);
-  dvish(pole);
+  dvish(pole, score);
   unRoteteMatrix(pole);
 
   if (isChanged(old, pole)) {

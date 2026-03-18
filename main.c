@@ -6,8 +6,9 @@
 
 int main() {
   srand(time(NULL));
-
   int pole[4][4] = {0};
+  int score = 0; 
+  
   addRandTitle(pole);
   addRandTitle(pole);
 
@@ -16,8 +17,8 @@ int main() {
   int running = 1;
 
   while (running) {
-    running = gui_handle_input(pole);
-    gui_draw(pole);
+    running = gui_handle_input(pole, &score);
+    gui_draw(pole, score);
     if (gameIsOver(pole)) 
       running = 0;
   }

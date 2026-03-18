@@ -101,7 +101,7 @@ void draw_tile(int value, int x, int y) {
   }
 }
 
-void gui_draw(int pole[4][4]){
+void gui_draw(int pole[4][4], int score){
   SDL_SetRenderDrawColor(renderer,220,220,220,255);
   SDL_RenderClear(renderer);
 
@@ -113,11 +113,28 @@ void gui_draw(int pole[4][4]){
       draw_tile(pole[i][j],x,y);
     }
   }
+
+  char score_text[32];
+  sprintf(score_text, "Score: %d", score);
+  SDL_Color color = {0,0,0,255};
+  SDL_Surface* surface = TTF_RenderText_Blended(font, score_text, color);
+  SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+  
+  SDL_Rect dst;
+  dst.x = 10;
+  dst.y = 10;
+  dst.w = surface->w;
+  dst.h = surface->h;
+
+  SDL_RenderCopy(renderer, texture, NULL, &dst);
+  SDL_FreeSurface(surface);
+  SDL_DestroyTexture(texture);
+
   SDL_RenderPresent(renderer);
 }
 
 // обработка ввода
-int gui_handle_input(int pole[4][4]) {
+int gui_handle_input(int pole[4][4], int *score) {
   SDL_Event event;
   
   while(SDL_PollEvent(&event)) { 
@@ -127,19 +144,19 @@ int gui_handle_input(int pole[4][4]) {
       switch(event.key.keysym.sym)
       {
         case SDLK_UP:
-        moveTop(pole);
+        moveTop(pole, score);
         break;
 
         case SDLK_DOWN:
-        moveBottom(pole);
+        moveBottom(pole, score);
         break;
         
         case SDLK_LEFT:
-        moveLeft(pole);
+        moveLeft(pole, score);
         break;
         
         case SDLK_RIGHT:
-        moveRight(pole);
+        moveRight(pole, score);
         break;
       }
     }
