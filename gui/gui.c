@@ -101,14 +101,14 @@ void draw_tile(int value, int x, int y) {
   }
 }
 
-void gui_draw(int pole[4][4], int score){
+void gui_draw(int pole[4][4], int score, int best_score){
   SDL_SetRenderDrawColor(renderer,220,220,220,255);
   SDL_RenderClear(renderer);
 
   for(int i=0;i<GRID_SIZE;i++){
     for(int j=0;j<GRID_SIZE;j++){
       int x = j*TILE_SIZE + 50;
-      int y = i*TILE_SIZE + 50;
+      int y = i*TILE_SIZE + 90;
         
       draw_tile(pole[i][j],x,y);
     }
@@ -119,7 +119,7 @@ void gui_draw(int pole[4][4], int score){
   SDL_Color color = {0,0,0,255};
   SDL_Surface* surface = TTF_RenderText_Blended(font, score_text, color);
   SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
-  
+
   SDL_Rect dst;
   dst.x = 10;
   dst.y = 10;
@@ -129,6 +129,21 @@ void gui_draw(int pole[4][4], int score){
   SDL_RenderCopy(renderer, texture, NULL, &dst);
   SDL_FreeSurface(surface);
   SDL_DestroyTexture(texture);
+
+  char best_text[32];
+  sprintf(best_text, "Best  : %d", best_score);
+  SDL_Surface* surface2 = TTF_RenderText_Blended(font, best_text, color);
+  SDL_Texture* texture2 = SDL_CreateTextureFromSurface(renderer, surface2);
+
+  SDL_Rect dst2;
+  dst2.x = 10;
+  dst2.y = dst.y + dst.h + 5; // ниже Score
+  dst2.w = surface2->w;
+  dst2.h = surface2->h;
+
+  SDL_RenderCopy(renderer, texture2, NULL, &dst2);
+  SDL_FreeSurface(surface2);
+  SDL_DestroyTexture(texture2);
 
   SDL_RenderPresent(renderer);
 }
