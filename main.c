@@ -64,7 +64,7 @@ int main() {
 
   gui_init();
 
-  int running = 1;
+  int running = 1; 
 
   while (running) {
     running = gui_handle_input(pole, &score, &show_lost);

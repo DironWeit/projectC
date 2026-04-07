@@ -19,8 +19,8 @@ TTF_Font* font = NULL;
 
 // инициализация
 int gui_init() {
-  SDL_Init(SDL_INIT_VIDEO);
-  TTF_Init();
+  SDL_Init(SDL_INIT_VIDEO); // вернет 0 при успехе, -1 при ошибке
+  TTF_Init(); // вернет 0 при успехе, -1 при ошибке
 
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         printf("SDL_Init Error: %s\n", SDL_GetError());
@@ -48,7 +48,7 @@ int gui_init() {
   );
   font = TTF_OpenFont("arial.ttf", 32); 
   if (!font) {
-    printf("TTF_OpenFont Error: %s\n", TTF_GetError());  // ИСПРАВЛЕНО: вывод ошибки если шрифт не найден
+    printf("TTF_OpenFont Error: %s\n", TTF_GetError()); 
     return 1;
   }
   return 0;
@@ -57,11 +57,6 @@ int gui_init() {
 //рисовка плиток
 void draw_tile(int value, int x, int y) {
   SDL_Rect rect = { x, y, TILE_SIZE - 10, TILE_SIZE - 10 };
-
-  rect.x = x;
-  rect.y = y;
-  rect.w = TILE_SIZE - 10;
-  rect.h = TILE_SIZE - 10;
 
   // Цвет плитки
   switch (value) {
@@ -140,14 +135,15 @@ void gui_draw(int pole[4][4], int score, int best_score, const char* best_date, 
     }
   }
 
-  char score_text[32];
-  sprintf(score_text, "Score: %d", score);
+  char score_text[32]; 
+  sprintf(score_text, "Score: %d", score); 
   SDL_Color color = {0,0,0,255};
   SDL_Surface* surface = TTF_RenderText_Blended(font, score_text, color);
-  SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+  SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface); 
+  
 
   SDL_Rect dst;
-  dst.x = 10;
+  dst.x = 10; 
   dst.y = 10;
   dst.w = surface->w;
   dst.h = surface->h;
@@ -219,8 +215,9 @@ int gui_handle_input(int pole[4][4], int *score, int *show_lost) {
   SDL_Event event;
   
   while(SDL_PollEvent(&event)) { 
-    if(event.type == SDL_QUIT)
-    return 0;
+    if(event.type == SDL_QUIT) {
+      return 0;
+    }
     if(event.type == SDL_KEYDOWN) {
       if (*show_lost) {
         if (event.key.keysym.sym == SDLK_p) {

@@ -93,7 +93,7 @@ int addRandTitle(int pole[4][4]) {
 //Функция сортировки в рамке 1 строки
 //дублирует строку
 //сдвигает все нули вправо
-//копирует дуюлированную строку в наш основной массив
+//копирует дублированную строку в наш основной массив
 int sortStr(int i, int pole[4][4]) {
   int tmpStr[4] = {0};
   bool entSt = false;
@@ -308,21 +308,21 @@ int check(int pole[4][4]) {
   return s;
 }
 
-// функция для ввода клавиш
-int my_getch() {
-    struct termios oldt, newt;
-    int ch;
+//// функция для ввода клавиш
+//int my_getch() {
+//    struct termios oldt, newt;
+//    int ch;
     
-    tcgetattr(STDIN_FILENO, &oldt);
-    newt = oldt;
-    newt.c_lflag &= ~(ICANON | ECHO);
-    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+//    tcgetattr(STDIN_FILENO, &oldt);
+//    newt = oldt;
+//    newt.c_lflag &= ~(ICANON | ECHO);
+//    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
     
-    ch = getchar();
+//    ch = getchar();
     
-    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-    return ch;
-}
+//    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+//    return ch;
+//}
 
 //Большая функция проверки остался ли код
 //Если осталось 0 пустых ячеек и эта функция вернет true тогда игра законченна  
