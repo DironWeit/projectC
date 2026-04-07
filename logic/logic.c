@@ -242,10 +242,12 @@ int moveRight(int pole[4][4], int *score) {
   int old[4][4];
 
   // копируем поле
-  for (int i=0;i<4;i++)
-    for (int j=0;j<4;j++)
+  for (int i=0;i<4;i++) {
+    for (int j=0;j<4;j++) {
       old[i][j] = pole[i][j];
-
+    }
+  }
+  
   roteteMatrix(pole);
   roteteMatrix(pole);
 
@@ -329,26 +331,26 @@ bool gameIsOver(int pole[4][4]) {
 
     // если есть пустая клетка — игра продолжается
     for (int i=0;i<4;i++){
-        for (int j=0;j<4;j++){
-            if (pole[i][j] == 0)
-                return false;
-        }
+      for (int j=0;j<4;j++){
+        if (pole[i][j] == 0)
+          return false;
+      }
     }
 
     // проверка горизонтали
     for (int i=0;i<4;i++){
-        for (int j=0;j<3;j++){
-            if (pole[i][j] == pole[i][j+1])
-                return false;
-        }
+      for (int j=0;j<3;j++){
+        if (pole[i][j] == pole[i][j+1])
+          return false;
+      }
     }
 
     // проверка вертикали
     for (int j=0;j<4;j++){
-        for (int i=0;i<3;i++){
-            if (pole[i][j] == pole[i+1][j])
-                return false;
-        }
+      for (int i=0;i<3;i++){
+        if (pole[i][j] == pole[i+1][j])
+          return false;
+      }
     }
 
     return true;

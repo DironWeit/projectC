@@ -27,7 +27,7 @@ int gui_init() {
         return 1;
     }
 
-    if (TTF_Init() == -1) {  // ИСПРАВЛЕНО: проверка ошибок TTF
+    if (TTF_Init() == -1) {  
         printf("TTF_Init Error: %s\n", TTF_GetError());
         return 1;
     }
@@ -65,19 +65,45 @@ void draw_tile(int value, int x, int y) {
 
   // Цвет плитки
   switch (value) {
-    case 0:   SDL_SetRenderDrawColor(renderer, 180, 180, 180, 255); break;
-    case 2:   SDL_SetRenderDrawColor(renderer, 238, 228, 218, 255); break;
-    case 4:   SDL_SetRenderDrawColor(renderer, 237, 224, 200, 255); break;
-    case 8:   SDL_SetRenderDrawColor(renderer, 242, 177, 121, 255); break;
-    case 16:  SDL_SetRenderDrawColor(renderer, 245, 149, 99, 255); break;
-    case 32:  SDL_SetRenderDrawColor(renderer, 246, 124, 95, 255); break;
-    case 64:  SDL_SetRenderDrawColor(renderer, 246, 94, 59, 255); break;
-    case 128: SDL_SetRenderDrawColor(renderer, 237, 207, 114, 255); break;
-    case 256: SDL_SetRenderDrawColor(renderer, 237, 204, 97, 255); break;
-    case 512: SDL_SetRenderDrawColor(renderer, 237, 200, 80, 255); break;
-    case 1024:SDL_SetRenderDrawColor(renderer, 237, 197, 63, 255); break;
-    case 2048:SDL_SetRenderDrawColor(renderer, 237, 194, 46, 255); break;
-    default:  SDL_SetRenderDrawColor(renderer, 60, 58, 50, 255); break; // для больших чисел
+    case 0:
+      SDL_SetRenderDrawColor(renderer, 180, 180, 180, 255);
+      break;
+    case 2:
+      SDL_SetRenderDrawColor(renderer, 238, 228, 218, 255);
+      break;
+    case 4:
+      SDL_SetRenderDrawColor(renderer, 237, 224, 200, 255);
+      break;
+    case 8:
+      SDL_SetRenderDrawColor(renderer, 242, 177, 121, 255);
+      break;
+    case 16:
+      SDL_SetRenderDrawColor(renderer, 245, 149, 99, 255);
+      break;
+    case 32:
+      SDL_SetRenderDrawColor(renderer, 246, 124, 95, 255);
+      break;
+    case 64:
+      SDL_SetRenderDrawColor(renderer, 246, 94, 59, 255);
+      break;
+    case 128:
+      SDL_SetRenderDrawColor(renderer, 237, 207, 114, 255);
+      break;
+    case 256:
+      SDL_SetRenderDrawColor(renderer, 237, 204, 97, 255);
+      break;
+    case 512:
+      SDL_SetRenderDrawColor(renderer, 237, 200, 80, 255);
+      break;
+    case 1024:
+      SDL_SetRenderDrawColor(renderer, 237, 197, 63, 255);
+      break;
+    case 2048:
+      SDL_SetRenderDrawColor(renderer, 237, 194, 46, 255);
+      break;
+    default:
+      SDL_SetRenderDrawColor(renderer, 60, 58, 50, 255);
+      break; // для больших чисел
   }
 
   // рисуем прямоугольник
@@ -105,8 +131,8 @@ void gui_draw(int pole[4][4], int score, int best_score, const char* best_date, 
   SDL_SetRenderDrawColor(renderer,220,220,220,255);
   SDL_RenderClear(renderer);
 
-  for(int i=0;i<GRID_SIZE;i++){
-    for(int j=0;j<GRID_SIZE;j++){
+  for(int i=0; i<GRID_SIZE; i++){
+    for(int j=0; j<GRID_SIZE; j++){
       int x = j*TILE_SIZE + 50;
       int y = i*TILE_SIZE + 90;
         
@@ -150,7 +176,7 @@ void gui_draw(int pole[4][4], int score, int best_score, const char* best_date, 
   SDL_DestroyTexture(texture2);
 
 
-  // ВОТ СЮДА ВСТАВИТЬ БЛОК show_lost
+
   if (show_lost) {
     char lost_text[64];
     sprintf(lost_text, "You lost: %d", lost_score);
@@ -205,20 +231,20 @@ int gui_handle_input(int pole[4][4], int *score, int *show_lost) {
       switch(event.key.keysym.sym)
       {
         case SDLK_UP:
-        moveTop(pole, score);
-        break;
+          moveTop(pole, score);
+          break;
 
         case SDLK_DOWN:
-        moveBottom(pole, score);
-        break;
+          moveBottom(pole, score);
+          break;
         
         case SDLK_LEFT:
-        moveLeft(pole, score);
-        break;
+          moveLeft(pole, score);
+          break;
         
         case SDLK_RIGHT:
-        moveRight(pole, score);
-        break;
+          moveRight(pole, score);
+          break;
       }
     }
   }

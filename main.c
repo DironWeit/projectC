@@ -67,21 +67,21 @@ int main() {
   int running = 1;
 
   while (running) {
-  running = gui_handle_input(pole, &score, &show_lost);
+    running = gui_handle_input(pole, &score, &show_lost);
     if (score > best_score) {
       best_score = score;
       get_today(best_date, sizeof(best_date));
       save_best_score(BEST_PATH, best_score, best_date);
     }
-  if (!show_lost && gameIsOver(pole)) {
-    lost_score = score;
-    show_lost = 1;
-    clearPole(pole);
-    addRandTitle(pole);
-    addRandTitle(pole);
-    score = 0;
-  }
-  gui_draw(pole, score, best_score, best_date, show_lost, lost_score);
+    if (!show_lost && gameIsOver(pole)) {
+      lost_score = score;
+      show_lost = 1;
+      clearPole(pole);
+      addRandTitle(pole);
+      addRandTitle(pole);
+      score = 0;
+    }
+    gui_draw(pole, score, best_score, best_date, show_lost, lost_score);
   }
 
   
